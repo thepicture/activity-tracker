@@ -11,14 +11,4 @@ services:
     volumes:
       - ./services/leaderboards:/home/node/app
     restart: on-failure
-    command: sh -c "npm start"
-
-  proxy:
-    container_name: proxy
-    build:
-      context: ./services/proxy
-      dockerfile: ../../docker/proxy.Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      - leaderboards
+    command: npm start
