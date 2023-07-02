@@ -19,10 +19,18 @@ if [ "$1" == "npmi" ]; then
 
         echo "npmi success"
     done
+elif [ "$1" == "create" ]; then
+    if [ -z "$2" ]; then
+        echo "service name not specified. usage: deploy create <service_name>"
+        exit 1
+    fi
+    cp -r template $2
+    echo service $2 created from template
 elif [ "$1" == "help" ]; then
     echo "deploy tool"
     echo "commands:"
     echo "deploy npmi - install packages for all services"
+    echo "deploy create <service_name> - create a new service from template"
 else
     echo "command not found. type \"deploy help\" for command list"
 fi
