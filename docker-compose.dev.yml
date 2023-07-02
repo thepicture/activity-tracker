@@ -12,3 +12,15 @@ services:
       - ./services/leaderboards:/home/node/app
     restart: on-failure
     command: npm start
+
+  monitors:
+    container_name: monitors
+    build:
+      context: ./services/monitors
+      dockerfile: ../../docker/monitors.Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./services/monitors:/home/node/app
+    restart: on-failure
+    command: npm start
