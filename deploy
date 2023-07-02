@@ -1,0 +1,28 @@
+#!/bin/bash
+
+cd "$(dirname "$0")/services" || exit
+
+if [ "$1" == "npmi" ]; then
+    for dir in */; do
+        if [ -f "$dir/.notinstallable" ]; then
+            continue
+        fi
+
+        if [ -d "$dir" ]; then
+            cd "$dir" || continue
+
+            echo "installing for service $(basename "$dir")..."
+            npm ci
+
+            cd ..
+        fi
+
+        echo "npmi success"
+    done
+elif [ "$1" == "help" ]; then
+    echo "deploy tool"
+    echo "commands:"
+    echo "deploy npmi - install packages for all services"
+else
+    echo "command not found. type \"deploy help\" for command list"
+fi
