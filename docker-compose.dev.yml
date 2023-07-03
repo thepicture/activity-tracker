@@ -1,26 +1,54 @@
 version: "3"
 
 services:
-  leaderboards:
-    container_name: leaderboards
+  postgres:
+    image: postgres:11-alpine
+    container_name: postgres
+    volumes:
+      - ./services/postgres/init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+
+  pgbouncer:
+    image: bitnami/pgbouncer:1.19.1-debian-11-r4
+    container_name: pgbouncer
+    ports:
+      - "6432:6432"
+    depends_on:
+      - postgres
+    environment:
+      POSTGRESQL_HOST: postgres
+      POSTGRESQL_DATABASE: db_paranoid
+      POSTGRESQL_USERNAME: paranoid
+      POSTGRESQL_PASSWORD: development
+      PGBOUNCER_DATABASE: db_paranoid
+
+  auth:
+    container_name: auth
     build:
-      context: ./services/leaderboards
-      dockerfile: ../../docker/leaderboards.Dockerfile
+      context: ./services/auth
+      dockerfile: ../../docker/auth.Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - ./services/leaderboards:/home/node/app
+      - ./services/auth:/home/node/app
     restart: on-failure
     command: npm start
+    depends_on:
+      - pgbouncer
 
-  monitors:
-    container_name: monitors
+  auth.business:
+    container_name: auth.business
     build:
-      context: ./services/monitors
-      dockerfile: ../../docker/monitors.Dockerfile
+      context: ./services/auth.business
+      dockerfile: ../../docker/auth.business.Dockerfile
     ports:
       - "3001:3001"
     volumes:
-      - ./services/monitors:/home/node/app
+      - ./services/auth.business:/home/node/app
     restart: on-failure
     command: npm start
