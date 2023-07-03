@@ -1,27 +1,29 @@
 version: "3"
 
 services:
-  leaderboards:
-    container_name: leaderboards
+  auth:
+    container_name: auth
     build:
-      context: ./services/leaderboards
-      dockerfile: ../../docker/leaderboards.Dockerfile
+      context: ./services/auth
+      dockerfile: ../../docker/auth.Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - ./services/leaderboards:/home/node/app
+      - ./services/auth:/home/node/app
     restart: on-failure
     command: npm start
+    depends_on:
+      - pgbouncer
 
-  monitors:
-    container_name: monitors
+  auth.business:
+    container_name: auth.business
     build:
-      context: ./services/monitors
-      dockerfile: ../../docker/monitors.Dockerfile
+      context: ./services/auth.business
+      dockerfile: ../../docker/auth.business.Dockerfile
     ports:
       - "3001:3001"
     volumes:
-      - ./services/monitors:/home/node/app
+      - ./services/auth.business:/home/node/app
     restart: on-failure
     command: npm start
 
@@ -33,5 +35,5 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - leaderboards
-      - monitors
+      - auth
+      - auth.business
