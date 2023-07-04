@@ -1,3 +1,5 @@
 # Repo-specific scripts
 push
 gitify
+
+**/node_modules
