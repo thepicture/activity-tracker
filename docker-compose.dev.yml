@@ -52,3 +52,16 @@ services:
       - ./services/auth.business:/home/node/app
     restart: on-failure
     command: npm start
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./services/frontend
+      dockerfile: ../../docker/frontend.Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./services/frontend:/home/node/app
+      - ./static/pages/index.html:/home/node/app/src/index.html
+    restart: on-failure
+    command: npm start
