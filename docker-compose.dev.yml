@@ -1,6 +1,16 @@
-version: "3"
+version: "3.0"
 
 services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./services/broker/data/:/var/lib/rabbitmq/
+      - ./services/broker/log/:/var/log/rabbitmq
+
   postgres:
     image: postgres:11-alpine
     container_name: postgres
@@ -36,6 +46,7 @@ services:
       - "3000:3000"
     volumes:
       - ./services/auth:/home/node/app
+      - ./shared:/home/node/app/shared
     restart: on-failure
     command: npm start
     depends_on:
@@ -50,6 +61,7 @@ services:
       - "3001:3001"
     volumes:
       - ./services/auth.business:/home/node/app
+      - ./shared:/home/node/app/shared
     restart: on-failure
     command: npm start
 
@@ -62,6 +74,5 @@ services:
       - "8080:8080"
     volumes:
       - ./services/frontend:/home/node/app
-      - ./static/pages/index.html:/home/node/app/src/index.html
     restart: on-failure
     command: npm start
