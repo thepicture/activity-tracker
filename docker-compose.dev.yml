@@ -48,9 +48,7 @@ services:
       - ./services/auth:/home/node/app
       - ./shared:/home/node/app/shared
     restart: on-failure
-    command: npm start
-    depends_on:
-      - pgbouncer
+    command: npm run dev
 
   auth.business:
     container_name: auth.business
@@ -63,7 +61,7 @@ services:
       - ./services/auth.business:/home/node/app
       - ./shared:/home/node/app/shared
     restart: on-failure
-    command: npm start
+    command: npm run dev
 
   frontend:
     container_name: frontend

@@ -1,14 +1,19 @@
-import express, { Application } from "express";
+import express, { json, urlencoded } from "express";
 import cors from "cors";
+import configs from "./configs";
 
-export default async (app: Application) => {
-  app.use(express.json({ limit: "8mb" }));
-  app.use(
-    express.urlencoded({
-      extended: true,
-      limit: "1mb",
-    })
-  );
-  app.use(cors());
-  app.use(express.static(__dirname + "/public"));
-};
+const app = express();
+
+app.use(json({ limit: "8mb" }));
+app.use(
+  urlencoded({
+    extended: true,
+    limit: "1mb",
+  })
+);
+app.use(cors());
+
+const environment =
+  process.env.NODE_ENV === "production" ? "production" : "development";
+
+app.listen(() => console.log(`Listening on port ${configs[environment].port}`));
