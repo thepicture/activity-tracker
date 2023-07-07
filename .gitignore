@@ -4,3 +4,8 @@ gitify
 
 **/node_modules
 public
+
+services/broker/data/*
+services/broker/log/*
+
+dist

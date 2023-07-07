@@ -4,6 +4,6 @@ USER node
 WORKDIR /home/node/app
 
 COPY --chown=node:node . .
-RUN npm ci
+RUN npm ci && npm run build
 
-CMD [ "node", "./bin/www" ]
+CMD [ "node", "./dist/index.js" ]

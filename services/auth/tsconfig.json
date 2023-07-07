@@ -2,13 +2,13 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@configs": ["src/configs"],
-      "@controllers": ["src/controllers"],
-      "@migrations": ["src/migrations"],
-      "@plugins": ["src/plugins"],
-      "@service": ["src/service"],
-      "@test": ["src/test"],
-      "@utils": ["src/utils"]
+      "@configs": ["configs"],
+      "@controllers": ["controllers"],
+      "@migrations": ["migrations"],
+      "@plugins": ["plugins"],
+      "@service": ["service"],
+      "@test": ["test"],
+      "@utils": ["utils"]
     },
     "module": "CommonJS",
     "esModuleInterop": true,
