@@ -1,9 +1,9 @@
 import React from 'react';
 
-import styles from './styles.module.scss';
+import { Auth } from 'features/auth';
 
 const AuthPage = () => {
-	return <p className={styles.paragraph}>AuthPage</p>;
+	return <Auth />;
 };
 
 export default AuthPage;
