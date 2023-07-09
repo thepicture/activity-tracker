@@ -47,7 +47,7 @@ services:
     volumes:
       - ./services/auth:/home/node/app
     restart: on-failure
-    command: sh -c 'node ./dist/index'
+    command: sh -c 'node ./dist/index || npm run build && node ./dist/index'
 
   auth.business:
     container_name: auth.business
@@ -60,7 +60,7 @@ services:
       - ./services/auth.business:/home/node/app
       - ./shared:/home/node/app/shared
     restart: on-failure
-    command: sh -c 'node ./dist/index'
+    command: sh -c 'node ./dist/index || npm run build && node ./dist/index'
 
   proxy:
     container_name: proxy
@@ -68,7 +68,7 @@ services:
       context: ./services/proxy
       dockerfile: ../../docker/proxy.Dockerfile
     ports:
-      - "80:80"
+      - "81:80"
     depends_on:
       - auth
       - auth.business
