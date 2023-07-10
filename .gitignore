@@ -1,6 +1,7 @@
 # Repo-specific scripts
 push
 gitify
+giter
 
 **/node_modules
 public

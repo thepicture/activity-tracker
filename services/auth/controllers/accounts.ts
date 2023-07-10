@@ -1,8 +1,4 @@
-import { Request, Response } from "express";
-import { createAccount } from "service";
+import { trySignIn } from "@service";
 
-export default (request: Request, response: Response) => {
-  const { login, password } = request.body;
-
-  return createAccount(login, password);
-};
+export const signIn = (phone: string, password: string) =>
+  trySignIn(phone, password);
