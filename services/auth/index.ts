@@ -4,11 +4,11 @@ import configs from "./configs";
 
 const app = express();
 
-app.use(json({ limit: "8mb" }));
+app.use(json({ limit: configs.development.limit.json }));
 app.use(
   urlencoded({
     extended: true,
-    limit: "1mb",
+    limit: configs.development.limit.uri,
   })
 );
 app.use(cors());
