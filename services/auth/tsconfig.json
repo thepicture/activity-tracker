@@ -9,9 +9,9 @@
       "@service": ["service"],
       "@test": ["test"],
       "@utils": ["utils"],
-      "@types": ["utils"],
-      "@errors": ["utils"],
-      "@enums": ["utils"]
+      "@types": ["types"],
+      "@errors": ["errors"],
+      "@enums": ["enums"]
     },
     "module": "CommonJS",
     "esModuleInterop": true,
