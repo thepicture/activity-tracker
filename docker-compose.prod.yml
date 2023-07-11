@@ -28,10 +28,8 @@ services:
     container_name: pgbouncer
     ports:
       - "6432:6432"
-    depends_on:
-      - postgres
     environment:
-      POSTGRESQL_HOST: postgres
+      POSTGRESQL_HOST: authdb
       POSTGRESQL_DATABASE: db_paranoid
       POSTGRESQL_USERNAME: paranoid
       POSTGRESQL_PASSWORD: development
@@ -49,19 +47,6 @@ services:
     restart: on-failure
     command: sh -c 'node ./dist/index || npm run build && node ./dist/index'
 
-  auth.business:
-    container_name: auth.business
-    build:
-      context: ./services/auth.business
-      dockerfile: ../../docker/auth.business.Dockerfile
-    ports:
-      - "3001:3001"
-    volumes:
-      - ./services/auth.business:/home/node/app
-      - ./shared:/home/node/app/shared
-    restart: on-failure
-    command: sh -c 'node ./dist/index || npm run build && node ./dist/index'
-
   proxy:
     container_name: proxy
     build:
@@ -71,4 +56,3 @@ services:
       - "81:80"
     depends_on:
       - auth
-      - auth.business
