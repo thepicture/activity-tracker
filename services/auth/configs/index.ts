@@ -1,4 +1,4 @@
-import { PERMISSIONS } from "enums";
+import { PERMISSIONS } from "../enums";
 
 export default {
   development: {
