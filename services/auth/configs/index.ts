@@ -27,7 +27,7 @@ export default {
     },
   },
   production: {
-    port: process.env.PORT,
+    port: Number(process.env.PORT),
     database: {
       client: "pg",
       connection: process.env.DATABASE_URL,

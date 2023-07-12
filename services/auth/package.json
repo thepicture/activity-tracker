@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node dist/index.js || npm run build && node dist/index.js",
     "build": "npx tsc",
-    "dev": "concurrently \"npx tsc --watch\" \"node dist/index.js\"",
+    "dev": "ts-node-dev --inspect=0.0.0.0:9229 --exit-child --respawn index.ts",
     "lint": "eslint ."
   },
   "license": "ISC",
@@ -29,13 +29,13 @@
     "@types/jsonwebtoken": "9.0.2",
     "@types/node": "20.3.3",
     "@typescript-eslint/eslint-plugin": "5.60.1",
-    "concurrently": "8.2.0",
     "eslint": "8.44.0",
     "eslint-config-standard-with-typescript": "36.0.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-n": "15.7.0",
     "eslint-plugin-promise": "6.1.1",
     "ts-node": "10.9.1",
+    "ts-node-dev": "2.0.0",
     "typescript": "5.1.6"
   }
 }
