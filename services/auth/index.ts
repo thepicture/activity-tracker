@@ -13,7 +13,13 @@ app.use(
 );
 app.use(cors());
 
+app.use('/', (_, response) => {
+  return response.end('pong');
+});
+
 const environment =
   process.env.NODE_ENV === "production" ? "production" : "development";
 
-app.listen(() => console.log(`Listening on port ${configs[environment].port}`));
+const PORT = configs[environment].port;
+
+app.listen(PORT, () => console.log(`Listening on port ${configs[environment].port}`));
