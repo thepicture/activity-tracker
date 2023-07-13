@@ -3,8 +3,8 @@ import { Knex } from "knex";
 const PHONE_NUMBER_LENGTH = 11;
 const PASSWORD_HASH_LENGTH = 32;
 
-export async function up(knex: Knex): Promise<void> {
-  knex.schema.table("accounts", (table) => {
+export const up: (knex: Knex) => Promise<void> = async (knex) => {
+  await knex.schema.table("accounts", (table) => {
     table.increments();
 
     table
@@ -38,8 +38,8 @@ export async function up(knex: Knex): Promise<void> {
 
     table.index("phone");
   });
-}
+};
 
-export async function down(knex: Knex): Promise<void> {
-  knex.schema.dropTable("accounts");
-}
+export const down: (knex: Knex) => Promise<void> = async (knex) => {
+  await knex.schema.dropTable("accounts");
+};

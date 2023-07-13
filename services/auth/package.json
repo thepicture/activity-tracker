@@ -6,13 +6,14 @@
     "test": "test"
   },
   "scripts": {
-    "start": "node dist/index.js || npm run build && node dist/index.js",
+    "start": "npm run build && knex migrate:latest && knex seed:run && node dist/index.js",
     "build": "npx tsc",
-    "dev": "ts-node-dev --inspect=0.0.0.0:9229 --exit-child --respawn index.ts",
+    "dev": "knex migrate:latest && knex seed:run && ts-node-dev --inspect=0.0.0.0:9229 --exit-child --respawn index.ts",
     "lint": "eslint ."
   },
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "8.0.2",
     "amqplib": "0.10.3",
     "argon2": "0.30.3",
     "cors": "2.8.5",
