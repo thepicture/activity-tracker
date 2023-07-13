@@ -11,9 +11,9 @@ services:
       - ./services/broker/data/:/var/lib/rabbitmq/
       - ./services/broker/log/:/var/log/rabbitmq
 
-  postgres:
+  authdb:
     image: postgres:11-alpine
-    container_name: postgres
+    container_name: authdb
     volumes:
       - ./services/postgres/init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
     environment:
