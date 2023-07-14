@@ -20,6 +20,10 @@ docker compose -f docker-compose.dev.yml up
 
 ### Production
 
+```
+docker build -t frontend -f docker/frontend.Dockerfile  ./services/frontend
+```
+
 ```bash
 chmod +x deploy
 ```

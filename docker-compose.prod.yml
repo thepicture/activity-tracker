@@ -45,7 +45,7 @@ services:
     volumes:
       - ./services/auth:/home/node/app
     restart: on-failure
-    command: sh -c 'node ./dist/index || npm run build && node ./dist/index'
+    command: sh -c 'npm run build && npx knex migrate:latest && node ./dist/index'
 
   proxy:
     container_name: proxy

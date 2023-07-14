@@ -4,7 +4,7 @@ const PHONE_NUMBER_LENGTH = 11;
 const PASSWORD_HASH_LENGTH = 32;
 
 export const up: (knex: Knex) => Promise<void> = async (knex) => {
-  await knex.schema.table("accounts", (table) => {
+  await knex.schema.createTable("accounts", (table) => {
     table.increments();
 
     table
@@ -31,7 +31,7 @@ export const up: (knex: Knex) => Promise<void> = async (knex) => {
     table
       .datetime("registrationDate", { useTz: false })
       .notNullable()
-      .defaultTo(Date.now())
+      .defaultTo(new Date().toISOString())
       .comment("Date of account creation");
 
     table.integer("permissions").notNullable().comment("What user can do");
