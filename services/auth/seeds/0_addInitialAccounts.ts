@@ -1,5 +1,6 @@
 import { Knex } from "knex";
 import { faker } from "@faker-js/faker";
+import configs from "../configs";
 
 const config = {
   phone: {
@@ -19,7 +20,7 @@ const config = {
     },
   },
   user: {
-    count: 1024,
+    count: 4,
   },
 };
 
@@ -37,14 +38,12 @@ type Account = {
   passwordHash: string;
   refreshToken: string;
   userId: Pick<User, "id">;
-  registrationDate: EpochTimeStamp;
+  registrationDate: ReturnType<Date["toISOString"]>;
   permissions: number;
 };
 
-type Sex = "male" | "female";
-
 const createRandomUser: () => User = () => {
-  const sex: Sex = faker.person.sex() as Sex;
+  const sex = faker.person.sexType();
 
   return {
     firstName: faker.person.firstName(sex),
@@ -63,8 +62,8 @@ const createRandomAccount: (userId: Pick<User, "id">) => Account = (
     length: config.refresh.token.length,
   }),
   userId,
-  registrationDate: faker.date.past().getTime(),
-  permissions: faker.number.int(),
+  registrationDate: faker.date.past().toISOString(),
+  permissions: configs.development.permissions.default,
 });
 
 const USERS: User[] = faker.helpers.multiple(createRandomUser, {
@@ -76,8 +75,8 @@ export const seed = async (knex: Knex): Promise<void> => {
 
   const userIds = await knex("users").insert(USERS).returning("id");
 
-  const accounts = userIds.map((userId: Pick<User, "id">) =>
-    createRandomAccount(userId)
+  const accounts = userIds.map(({ id: userId }: Pick<User, "id">) =>
+    createRandomAccount(userId as Pick<User, "id">)
   );
 
   await knex("accounts").insert(accounts);

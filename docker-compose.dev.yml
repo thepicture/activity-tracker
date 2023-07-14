@@ -49,7 +49,7 @@ services:
       - ./services/auth:/home/node/app
       - ./shared:/home/node/app/shared
     restart: on-failure
-    command: npm run dev
+    command: sh -c "npm run build && npx knex migrate:latest && npx knex seed:run && npm start"
     depends_on:
       - pgbouncer
 
