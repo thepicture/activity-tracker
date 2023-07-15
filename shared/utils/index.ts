@@ -18,11 +18,11 @@ export const createChannel = async (): Promise<Channel> => {
 };
 
 /**
- * Publishes a message to an exchange
+ * Publishes a message to exchange
  * @param channel a channel that will publish
  * @param bindingKey a key to differentiate bindings
- * @param message the content
- * @returns {Promise<boolean>} promise representing if the message was published
+ * @param message content
+ * @returns {Promise<boolean>} promise representing if message was published
  */
 export const publishMessage = async (
   channel: Channel,
@@ -34,9 +34,9 @@ export const publishMessage = async (
 /**
  * Subscribes to queue events
  * @param channel a channel that will publish
- * @param queueName the queue name
+ * @param queueName queue name
  * @param bindingKey a key to differentiate bindings
- * @param callback callback resolving with the content
+ * @param callback callback resolving with content
  */
 export const subscribeToMessage = async (
   channel: Channel,
