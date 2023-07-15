@@ -6,7 +6,7 @@ export default {
     database: {
       client: "pg",
       connection:
-        "postgresql://paranoid:development@authdb:5432/auth?application_name=db_paranoid",
+        "postgresql://paranoid:paranoid@authdb:5432/auth?application_name=db_paranoid",
     },
     token: {
       refresh: {

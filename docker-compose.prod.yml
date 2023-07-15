@@ -15,7 +15,7 @@ services:
     image: postgres:11-alpine
     container_name: authdb
     volumes:
-      - ./services/postgres/init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+      - ./services/authdb/init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -32,7 +32,7 @@ services:
       POSTGRESQL_HOST: authdb
       POSTGRESQL_DATABASE: db_paranoid
       POSTGRESQL_USERNAME: paranoid
-      POSTGRESQL_PASSWORD: development
+      POSTGRESQL_PASSWORD: paranoid
       PGBOUNCER_DATABASE: db_paranoid
 
   auth:
@@ -44,6 +44,7 @@ services:
       - "3000:3000"
     volumes:
       - ./services/auth:/home/node/app
+      - ./shared:/home/node/app/shared
     restart: on-failure
     command: sh -c 'npm run build && npx knex migrate:latest && node ./dist/index'
 
