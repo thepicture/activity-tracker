@@ -1,2 +1,2 @@
-CREATE ROLE paranoid WITH LOGIN PASSWORD 'development';
+CREATE ROLE paranoid WITH LOGIN PASSWORD 'paranoid';
 CREATE DATABASE auth WITH OWNER paranoid;
