@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 import {
 	isTokenExpired,
@@ -21,13 +21,10 @@ class ViewerStore {
 	phone = '';
 	password = '';
 
-	/** Error during api call */
-	error = '';
+	errorMessage = '';
 
 	constructor() {
-		makeAutoObservable(this, {
-			isRefreshTokenValid: false,
-		});
+		makeAutoObservable(this);
 
 		makePersistable(this, {
 			name: 'ViewerStore',
@@ -35,22 +32,16 @@ class ViewerStore {
 		});
 	}
 
-	get isSignedIn(): boolean {
-		if (!this.isRefreshTokenValid) {
-			return false;
-		}
-	}
-
 	get shouldAccessTokenRefetch() {
 		return !this.isAccessTokenValid && this.isRefreshTokenValid;
 	}
 
 	get isAccessTokenValid(): boolean {
-		return this.#isTokenValid(Tokens.Access);
+		return !isTokenExpired(this[Tokens.Access]);
 	}
 
 	get isRefreshTokenValid(): boolean {
-		return this.#isTokenValid(Tokens.Refresh);
+		return !isTokenExpired(this[Tokens.Refresh]);
 	}
 
 	get canSignIn() {
@@ -73,17 +64,15 @@ class ViewerStore {
 				password,
 			});
 		} catch (_) {
-			this.error = 'Cannot sign in';
+			this.errorMessage = 'Cannot sign in';
 
 			return;
 		}
 
 		const { refreshToken, accessToken } = refreshAccessTokenPair;
 
-		runInAction(() => {
-			this.refreshToken = refreshToken;
-			this.accessToken = accessToken;
-		});
+		this.refreshToken = refreshToken;
+		this.accessToken = accessToken;
 	};
 
 	/**
@@ -102,14 +91,12 @@ class ViewerStore {
 				refreshToken: this.refreshToken,
 			});
 		} catch (_) {
-			this.error = 'Cannot refresh access token';
+			this.errorMessage = 'Cannot refresh access token';
 
 			return;
 		}
 
-		runInAction(() => {
-			this.accessToken = accessToken;
-		});
+		this.accessToken = accessToken;
 	};
 
 	setPhone = (phone: string) => {
@@ -118,16 +105,6 @@ class ViewerStore {
 
 	setPassword = (password: string) => {
 		this.password = password;
-	};
-
-	#isTokenValid = (which: Tokens): boolean => {
-		const token = this[which];
-
-		if (!token) {
-			return false;
-		}
-
-		return !isTokenExpired(token);
 	};
 }
 
