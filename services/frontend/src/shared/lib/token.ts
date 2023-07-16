@@ -5,5 +5,10 @@ import { decodeToken, isExpired } from 'react-jwt';
  * @param token json web token
  * @returns `true` if token expired, else `false`
  */
-export const isTokenExpired = (token: string): boolean =>
-	isExpired(decodeToken(token));
+export const isTokenExpired = (token: string): boolean => {
+	if (!token) {
+		return true;
+	}
+
+	return isExpired(decodeToken(token));
+};
