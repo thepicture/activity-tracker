@@ -38,7 +38,9 @@ export const Auth = observer(() => (
 							viewerModel.store.setPassword(value)
 						}
 					/>
-					{viewerModel.store.error && <Error>{viewerModel.store.error}</Error>}
+					{viewerModel.store.errorMessage && (
+						<Error>{viewerModel.store.errorMessage}</Error>
+					)}
 					<Touch
 						type="submit"
 						disabled={!viewerModel.store.canSignIn}
