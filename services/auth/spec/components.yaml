@@ -1,0 +1,42 @@
+components:
+  schemas:
+    AccessRefreshTokenPairResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          example: 123456
+        refreshToken:
+          type: string
+          example: 123456
+
+    SignInBody:
+      type: object
+      required:
+        - phone
+        - password
+      properties:
+        phone:
+          type: string
+          example: 79123123123
+        password:
+          type: string
+          example: secret
+
+    ErrorItem:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 401
+        message:
+          type: string
+          example: incorrect phone or password
+
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/ErrorItem"
