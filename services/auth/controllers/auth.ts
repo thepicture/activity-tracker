@@ -4,9 +4,11 @@ import { trySignIn } from "../service";
 
 const router = Router();
 
-router.post("/", ({ body: { phone, password } }, response) => {
+router.post("/", async ({ body: { phone, password } }, response) => {
   try {
-    response.status(constants.HTTP_STATUS_OK).json(trySignIn(phone, password));
+    const accessRefreshTokenPair = await trySignIn(phone, password);
+
+    response.status(constants.HTTP_STATUS_OK).json(accessRefreshTokenPair);
   } catch (_) {
     return response.status(constants.HTTP_STATUS_UNAUTHORIZED).json({
       code: constants.HTTP_STATUS_UNAUTHORIZED,

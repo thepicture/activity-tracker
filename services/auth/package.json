@@ -1,21 +1,21 @@
 {
   "name": "auth",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "start": "node dist/index.js",
     "build": "npx tsc",
-    "dev": "knex migrate:latest && knex seed:run && ts-node-dev --inspect=0.0.0.0:9229 --exit-child --respawn index.ts",
+    "dev": "nodemon --exec node --require ts-node/register -e ts,json,yaml --inspect=0.0.0.0:9229 index.ts",
     "lint": "eslint ."
   },
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "8.0.2",
     "amqplib": "0.10.3",
-    "argon2": "0.30.3",
+    "argon2": "0.27.2",
     "cors": "2.8.5",
     "dotenv": "16.3.1",
     "express": "4.18.2",
@@ -36,8 +36,8 @@
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-n": "15.7.0",
     "eslint-plugin-promise": "6.1.1",
+    "nodemon": "3.0.1",
     "ts-node": "10.9.1",
-    "ts-node-dev": "2.0.0",
     "typescript": "5.1.6"
   }
 }

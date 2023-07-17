@@ -1,21 +1,12 @@
 import { Knex } from "knex";
 
-const PHONE_NUMBER_LENGTH = 11;
-const PASSWORD_HASH_LENGTH = 32;
-
 export const up: (knex: Knex) => Promise<void> = async (knex) => {
   await knex.schema.createTable("accounts", (table) => {
     table.increments();
 
-    table
-      .string("phone", PHONE_NUMBER_LENGTH)
-      .notNullable()
-      .comment("Phone number");
+    table.string("phone").notNullable().comment("Phone number");
 
-    table
-      .string("passwordHash", PASSWORD_HASH_LENGTH)
-      .notNullable()
-      .comment("Password hash");
+    table.string("passwordHash").notNullable().comment("Password hash");
 
     table.string("refreshToken").comment("Refresh token to prolong access");
 
