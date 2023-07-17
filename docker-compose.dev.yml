@@ -32,10 +32,8 @@ services:
       POSTGRESQL_HOST: authdb
       POSTGRESQL_DATABASE: db_paranoid
       POSTGRESQL_USERNAME: paranoid
-      POSTGRESQL_PASSWORD: development
+      POSTGRESQL_PASSWORD: paranoid
       PGBOUNCER_DATABASE: db_paranoid
-    depends_on:
-      - authdb
 
   auth:
     container_name: auth
@@ -49,9 +47,7 @@ services:
       - ./services/auth:/home/node/app
       - ./shared:/home/node/app/shared
     restart: on-failure
-    command: sh -c "npm run build && npx knex migrate:latest && npx knex seed:run && npm start"
-    depends_on:
-      - pgbouncer
+    command: sh -c "npm run build && npx knex migrate:latest && npx knex seed:run && npm run dev"
 
   frontend:
     container_name: frontend

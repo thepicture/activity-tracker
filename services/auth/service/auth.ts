@@ -1,8 +1,11 @@
-import { getGeneratedAccessRefreshTokenPair } from "@utils";
+import { getGeneratedAccessRefreshTokenPair } from "../utils";
 import { verify } from "argon2";
-import { RuntimeError } from "errors";
+import { RuntimeError } from "../errors";
 import knex from "knex";
-import { AccessRefreshTokenPair } from "types";
+import * as knexConfig from "../knexfile";
+import { AccessRefreshTokenPair } from "../types";
+
+const database = knex((knexConfig as { development: unknown }).development);
 
 /**
  * Saves refresh token in account and returns new refresh token
@@ -14,7 +17,7 @@ export const saveRefreshTokenInAccount = async (
   accountId: number,
   refreshToken: string
 ) => {
-  return await knex("accounts")
+  return await database("accounts")
     .where("id", accountId)
     .update({ refreshToken })
     .returning("refreshToken");
@@ -35,7 +38,7 @@ export const trySignIn = async (
     throw new RuntimeError("Phone and password required");
   }
 
-  const [account] = await knex("accounts")
+  const [account] = await database("accounts")
     .select(["id", "passwordHash"])
     .where("phone", phone)
     .limit(1);
@@ -46,9 +49,9 @@ export const trySignIn = async (
 
   const { id: accountId, passwordHash } = account;
 
-  try {
-    await verify(passwordHash, password);
-  } catch {
+  const doPasswordsMatch = await verify(passwordHash, password);
+
+  if (!doPasswordsMatch) {
     throw new RuntimeError("Invalid credentials");
   }
 

@@ -1,0 +1,24 @@
+post:
+  summary: Tries to sign in
+  operationId: signIn
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../components.yaml#/components/schemas/SignInBody"
+
+  responses:
+    "200":
+      description: Auth succeeded
+      content:
+        application/json:
+          schema:
+            $ref: "../components.yaml#/components/schemas/AccessRefreshTokenPairResponse"
+
+    "401":
+      description: Invalid phone or password
+      content:
+        application/json:
+          schema:
+            $ref: "../components.yaml#/components/schemas/ErrorResponse"

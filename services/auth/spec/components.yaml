@@ -1,0 +1,42 @@
+components:
+  schemas:
+    AccessRefreshTokenPairResponse:
+      type: object
+      required:
+        - accessToken
+        - refreshToken
+      properties:
+        accessToken:
+          type: string
+          example: 123456
+        refreshToken:
+          type: string
+          example: 123456
+
+    SignInBody:
+      type: object
+      required:
+        - phone
+        - password
+      properties:
+        phone:
+          type: string
+          example: 79123123123
+        password:
+          type: string
+          example: secret
+
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - errors
+      properties:
+        code:
+          type: number
+          example: 401
+        errors:
+          type: array
+          items:
+            type: string
+          minItems: 1

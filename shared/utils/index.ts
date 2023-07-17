@@ -5,8 +5,8 @@ import config from "../config";
 type SubscribeCallback = (message: unknown) => void;
 
 /**
- * Creates a new exchange channel
- * @returns {Promise<Channel>} promise representing a new channel
+ * Creates new exchange channel
+ * @returns {Promise<Channel>} promise representing new channel
  */
 export const createChannel = async (): Promise<Channel> => {
   const connection = await connect(config.message.broker.url);
@@ -18,11 +18,11 @@ export const createChannel = async (): Promise<Channel> => {
 };
 
 /**
- * Publishes a message to an exchange
- * @param channel a channel that will publish
- * @param bindingKey a key to differentiate bindings
- * @param message the content
- * @returns {Promise<boolean>} promise representing if the message was published
+ * Publishes message to exchange
+ * @param channel channel that will publish
+ * @param bindingKey key to differentiate bindings
+ * @param message content
+ * @returns {Promise<boolean>} promise representing if message was published
  */
 export const publishMessage = async (
   channel: Channel,
@@ -33,10 +33,10 @@ export const publishMessage = async (
 
 /**
  * Subscribes to queue events
- * @param channel a channel that will publish
- * @param queueName the queue name
- * @param bindingKey a key to differentiate bindings
- * @param callback callback resolving with the content
+ * @param channel channel that will publish
+ * @param queueName queue name
+ * @param bindingKey key to differentiate bindings
+ * @param callback callback resolving with content
  */
 export const subscribeToMessage = async (
   channel: Channel,

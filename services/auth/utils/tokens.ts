@@ -1,4 +1,4 @@
-import configs from "@configs";
+import configs from "../configs";
 import jwt from "jsonwebtoken";
 import { AccessRefreshTokenPair } from "types";
 
