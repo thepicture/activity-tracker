@@ -47,7 +47,7 @@ services:
       - ./services/auth:/home/node/app
       - ./shared:/home/node/app/shared
     restart: on-failure
-    command: sh -c "npm run build && npx knex migrate:latest && npx knex seed:run && npm start"
+    command: sh -c "npm run build && npx knex migrate:latest && npx knex seed:run && npm run dev"
 
   frontend:
     container_name: frontend
