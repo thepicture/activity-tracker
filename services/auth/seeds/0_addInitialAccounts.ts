@@ -11,7 +11,7 @@ const config = {
   },
   password: {
     hash: {
-      length: 32,
+      stub: "$argon2id$v=19$m=65536,t=3,p=4$SGmaD2D/LBchrMUWk6NEig$T9LToa+th3PN7Z+J7bwXekKp7Mf5Deow6Iq1pdF5W14", // 123456
     },
   },
   refresh: {
@@ -57,7 +57,7 @@ const createRandomAccount: (userId: Pick<User, "id">) => Account = (
   userId
 ) => ({
   phone: faker.phone.number(config.phone.format),
-  passwordHash: faker.string.alphanumeric(config.password.hash.length),
+  passwordHash: config.password.hash.stub,
   refreshToken: faker.string.alphanumeric({
     length: config.refresh.token.length,
   }),

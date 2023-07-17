@@ -49,9 +49,9 @@ export const trySignIn = async (
 
   const { id: accountId, passwordHash } = account;
 
-  try {
-    await verify(passwordHash, password);
-  } catch {
+  const doPasswordsMatch = await verify(passwordHash, password);
+
+  if (!doPasswordsMatch) {
     throw new RuntimeError("Invalid credentials");
   }
 

@@ -2,6 +2,9 @@ components:
   schemas:
     AccessRefreshTokenPairResponse:
       type: object
+      required:
+        - accessToken
+        - refreshToken
       properties:
         accessToken:
           type: string
@@ -23,20 +26,17 @@ components:
           type: string
           example: secret
 
-    ErrorItem:
-      type: object
-      properties:
-        code:
-          type: string
-          example: 401
-        message:
-          type: string
-          example: incorrect phone or password
-
     ErrorResponse:
       type: object
+      required:
+        - code
+        - errors
       properties:
+        code:
+          type: number
+          example: 401
         errors:
           type: array
           items:
-            $ref: "#/components/schemas/ErrorItem"
+            type: string
+          minItems: 1

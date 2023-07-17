@@ -16,7 +16,7 @@ post:
           schema:
             $ref: "../components.yaml#/components/schemas/AccessRefreshTokenPairResponse"
 
-    "400":
+    "401":
       description: Invalid phone or password
       content:
         application/json:
