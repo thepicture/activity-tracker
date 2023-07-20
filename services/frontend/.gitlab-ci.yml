@@ -1,0 +1,13 @@
+stages:
+  - lint
+
+lint_frontend:
+  stage: lint
+  script:
+    - cd services/frontend
+    - npm i
+    - npm run lint
+  rules:
+    - changes:
+        - services/frontend/**/*
+    - if: '$CI_COMMIT_REF_NAME == "main"'
