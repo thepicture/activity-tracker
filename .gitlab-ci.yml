@@ -1,3 +1,3 @@
 include:
-  - local: "services/frontend/.gitlab-ci.yml"
-  - local: "services/auth/.gitlab-ci.yml"
+  - local: '/services/frontend/.gitlab-ci.yml'
+  - local: '/services/auth/.gitlab-ci.yml'
